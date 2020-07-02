@@ -9,14 +9,18 @@ public class PlayerControls : MonoBehaviour
     private float playerSpeed = 2.0f;
     [SerializeField]
     private float gravityValue = -9.81f;
+    [SerializeField]
+    private GameObject drumStick;
 
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
+    private Animator animator;
     
     private void Start()
     {
-        controller = gameObject.GetComponent<CharacterController>();
+        controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -40,7 +44,7 @@ public class PlayerControls : MonoBehaviour
         // Hit with the stick
         if (Input.GetButtonDown("Jump") && groundedPlayer)
         {
-            //playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            animator.SetTrigger("StickHit");
         }
 
         // Apply gravity to the player
