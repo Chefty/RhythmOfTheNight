@@ -7,18 +7,25 @@ public class RhythmInterpreter : MonoBehaviour
 {
     [SerializeField]
     private float rhythmDelay = 1f;
-    private string rhythm = "xx.x.x.xxx.x.xxxx.xx..x.x.xxx...xx.x...xx..x.x.x.x";
     RhythmObjectSpawner rhythmObjectSpawner;
 
     private char[] rhythmArray;
     private WaitForSeconds rhythmDelayCo;
     private bool isParsingDone = false;
+    private string lastRhythmPattern;
 
-    void Start()
+    void Awake()
     {
         rhythmObjectSpawner = GetComponent<RhythmObjectSpawner>();
-        rhythmArray = rhythm.ToCharArray();
         rhythmDelayCo = new WaitForSeconds(rhythmDelay);
+    }
+
+    public void SetRhythmPattern(string rhythmPattern)
+    {
+        Debug.LogError("SetRhythmPattern - " + rhythmPattern);
+        if (rhythmPattern == "")
+            return;
+        rhythmArray = rhythmPattern.ToCharArray();
         StartCoroutine(ParseRhythm());
     }
 
@@ -28,6 +35,7 @@ public class RhythmInterpreter : MonoBehaviour
     /// <returns></returns>
     private IEnumerator ParseRhythm()
     {
+        Debug.LogError("ParseRhythm");
         for (int i = 0; i < rhythmArray.Length; i++)
         {
             yield return rhythmDelayCo; // Delay spawning objects

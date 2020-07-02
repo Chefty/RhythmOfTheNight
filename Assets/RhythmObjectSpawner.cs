@@ -11,7 +11,7 @@ public class RhythmObjectSpawner : MonoBehaviour
 
     private bool lastNoteState = false;
     Transform lastSpawnPoint = null;
-
+    private List<GameObject> spawnableList = new List<GameObject>();
     /// <summary>
     /// Spawning rhythm objects depending on if there is a note or a rest time
     /// </summary>
@@ -27,7 +27,21 @@ public class RhythmObjectSpawner : MonoBehaviour
         // Caching new note
         lastNoteState = isNote;
         if (isNote) // If there is a note then we spawn a rhythm object
-            GameObject.Instantiate(spawnable, lastSpawnPoint.position, spawnable.transform.rotation);
+            spawnableList.Add(Instantiate(spawnable, lastSpawnPoint.position, spawnable.transform.rotation));
+    }
 
+    /// <summary>
+    /// Reset the game
+    /// </summary>
+    public void ClearSpawnableList()
+    {
+        if (spawnableList.Count <= 0)
+            return;
+
+        foreach (var spawnable in spawnableList)
+        {
+            Destroy(spawnable);
+        }
+        spawnableList.Clear();
     }
 }
