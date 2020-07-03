@@ -7,7 +7,7 @@ Technical assessment for <a href="https://weare-rooms.com/" target="_blank">WeAr
 
 <p align="center">
   <a href="#how-to-use">How To Use</a> •
-  <a href="#license">License</a> •
+  <a href="#license">License</a>
 </p>
 
 ## How To Use
