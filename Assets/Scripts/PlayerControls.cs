@@ -16,11 +16,13 @@ public class PlayerControls : MonoBehaviour
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     private Animator animator;
+    private Collider drumStickCollider;
     
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        drumStickCollider = drumStick.GetComponent<Collider>();
     }
 
     void Update()
@@ -51,4 +53,19 @@ public class PlayerControls : MonoBehaviour
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }
+
+
+    #region AnimationEvent
+    
+    public void EnableStickCollider()
+    {
+        drumStickCollider.enabled = true;
+    }
+
+    public void DisableStickCollider()
+    {
+        drumStickCollider.enabled = false;
+    }
+
+    #endregion
 }

@@ -15,6 +15,8 @@ public class UIManager : MonoBehaviour
     private GameObject settings;
     private bool isPause = true;
 
+    public bool IsPause { get => isPause; }
+
     private void Awake()
     {
         settings = transform.GetChild(0).gameObject;
@@ -34,24 +36,30 @@ public class UIManager : MonoBehaviour
             ResumeGame();
     }
 
-    private void PauseGame()
+    public void PauseGame()
     {
+        isPause = true;
         Time.timeScale = 0f;
         settings.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
-    private void ResumeGame()
+    public void ResumeGame()
     {
+        isPause = false;
         Time.timeScale = 1f;
         settings.SetActive(false);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void StartRhythmInterpreter(string rhythmPattern)
     {
-        Debug.LogError("TEST: " + rhythmPattern);
         if (rhythmPattern != "")
         {
-            GameManager.instance.RhythmPattern = rhythmPattern;
+            GameManager.instance.RhythmPattern = rhythmPattern; // Set rhythmPattern and trigger methods
+            GameManager.instance.IsPlayerWin = true; // Reset win state
             isPause = false;
         }
         else

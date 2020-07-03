@@ -12,7 +12,7 @@ public class RhythmInterpreter : MonoBehaviour
     private char[] rhythmArray;
     private WaitForSeconds rhythmDelayCo;
     private bool isParsingDone = false;
-    private string lastRhythmPattern;
+    public bool IsParsingDone { get => isParsingDone; set => isParsingDone = value; }
 
     void Awake()
     {
@@ -22,7 +22,6 @@ public class RhythmInterpreter : MonoBehaviour
 
     public void SetRhythmPattern(string rhythmPattern)
     {
-        Debug.LogError("SetRhythmPattern - " + rhythmPattern);
         if (rhythmPattern == "")
             return;
         rhythmArray = rhythmPattern.ToCharArray();
@@ -35,19 +34,19 @@ public class RhythmInterpreter : MonoBehaviour
     /// <returns></returns>
     private IEnumerator ParseRhythm()
     {
-        Debug.LogError("ParseRhythm");
         for (int i = 0; i < rhythmArray.Length; i++)
         {
             yield return rhythmDelayCo; // Delay spawning objects
 
+            bool lastCall = (i == rhythmArray.Length - 1); // Last rhythm note in pattern
+
             if (rhythmArray[i] == 'x')
-                rhythmObjectSpawner.SpawnRhythmNote(true, rhythmArray[i]);
+                rhythmObjectSpawner.SpawnRhythmNote(true, lastCall);
             else if (rhythmArray[i] == '.')
-                rhythmObjectSpawner.SpawnRhythmNote(false, rhythmArray[i]);
+                rhythmObjectSpawner.SpawnRhythmNote(false, lastCall);
             else
                 break;
         }
-
         isParsingDone = true;
     }
 }
