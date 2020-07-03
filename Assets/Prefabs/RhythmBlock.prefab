@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 4770369062941220710}
   - component: {fileID: 1436112973}
   - component: {fileID: 4577344800088105214}
+  - component: {fileID: 2175853803561848146}
   m_Layer: 0
   m_Name: RhythmBlock
-  m_TagString: Untagged
+  m_TagString: RhythmObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 4933289256763801338}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 0.5, z: 3}
+  m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -91,7 +92,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7cdcd9987b24944eab9490bf3184354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
+  moveSpeed: 10
+  disabledMaterial: {fileID: 2100000, guid: 2c2f16e7e02e24340958d9439c3ee124, type: 2}
+  enabledMaterial: {fileID: 2100000, guid: 8a9dcb6b538ce444695c01150c37e810, type: 2}
 --- !u!64 &4577344800088105214
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -106,3 +109,16 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2175853803561848146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4933289256763801338}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68cbc38cdaf6f4441afa888669353ce9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeTime: 1
