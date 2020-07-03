@@ -24,7 +24,7 @@ A UnityPackage is also available in the root of this repository. Just download i
 
 #### Tutorial
 When you start the game, it's necessary to enter a **Rhythm Pattern** in the editor displayed.<br />
-A **Rhythm Pattern** is composed of **x** for notes and **.** for rest times. An example of **Rhythm Pattern**: x.x..xxx.x..xxx...xxxxx.x<br />
+A **Rhythm Pattern** is composed of **"x"** for notes and **"."** for rest times. An example of **Rhythm Pattern**: x.x..xxx.x..xxx...xxxxx.x<br />
 Once done, press **Start** and move the player with **LEFT** and **RIGHT** arrows. Press the **SPACE BAR** to hit the red drums on time.<br />
 You have to be quick before those drums reach out the deadzone (after the blue line).<br />
 Get all the red drums ont time and you will see a stunning surprise. If you fail the sky will let you know.<br />
