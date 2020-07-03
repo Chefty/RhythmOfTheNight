@@ -5,25 +5,35 @@ using UnityEngine;
 
 public class RhythmInterpreter : MonoBehaviour
 {
+    #region Variables
+    // Public fields
     [SerializeField]
     private float rhythmDelay = 1f;
-    RhythmObjectSpawner rhythmObjectSpawner;
 
+    // Private fields
     private char[] rhythmArray;
     private WaitForSeconds rhythmDelayCo;
-    private bool isParsingDone = false;
-    public bool IsParsingDone { get => isParsingDone; set => isParsingDone = value; }
+    #endregion
 
+    #region Unity Callbacks
     void Awake()
     {
-        rhythmObjectSpawner = GetComponent<RhythmObjectSpawner>();
         rhythmDelayCo = new WaitForSeconds(rhythmDelay);
     }
+    #endregion
 
+    #region Helper Methods
+    /// <summary>
+    /// If not empty - Set rhythm pattern and start parsing
+    /// </summary>
+    /// <param name="rhythmPattern"></param>
     public void SetRhythmPattern(string rhythmPattern)
     {
         if (rhythmPattern == "")
+        {
+            Debug.LogError("Empty rhythm pattern, can't start the game");
             return;
+        }
         rhythmArray = rhythmPattern.ToCharArray();
         StartCoroutine(ParseRhythm());
     }
@@ -38,15 +48,15 @@ public class RhythmInterpreter : MonoBehaviour
         {
             yield return rhythmDelayCo; // Delay spawning objects
 
-            bool lastCall = (i == rhythmArray.Length - 1); // Last rhythm note in pattern
+            bool lastCall = (i == rhythmArray.Length - 1); // Last rhythm note in pattern - end of parsing
 
             if (rhythmArray[i] == 'x')
-                rhythmObjectSpawner.SpawnRhythmNote(true, lastCall);
+                GameManager.instance.rhythmObjectSpawner.SpawnRhythmNote(true, lastCall);
             else if (rhythmArray[i] == '.')
-                rhythmObjectSpawner.SpawnRhythmNote(false, lastCall);
+                GameManager.instance.rhythmObjectSpawner.SpawnRhythmNote(false, lastCall);
             else
                 break;
         }
-        isParsingDone = true;
-    }
+    } 
+    #endregion
 }

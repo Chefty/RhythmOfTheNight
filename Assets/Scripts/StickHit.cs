@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class StickHit : MonoBehaviour
 {
+    #region Variables
+    // Public fields
     [SerializeField]
     private GameObject hitFX;
     [SerializeField]
-    AudioClip[] hitAudioClips;
+    private AudioClip[] hitAudioClips;
 
+    // Private fields
     private ObjectPooler objectPooler;
     private int poIndex;
     private AudioSource audioSource;
     private GameObject lastCollidedObject;
+    #endregion
 
     // Start is called before the first frame update
+    #region Unity Callbacks
     void Start()
     {
         objectPooler = ObjectPooler.SharedInstance;
@@ -30,7 +35,9 @@ public class StickHit : MonoBehaviour
             StartCoroutine(DrumHitCO(lastCollidedObject));
         }
     }
+    #endregion
 
+    #region Helper Methods
     private IEnumerator DrumHitCO(GameObject other)
     {
         // Play audio feedback
@@ -44,5 +51,6 @@ public class StickHit : MonoBehaviour
         // Disable drum head
         other.SetActive(false);
         yield return null;
-    }
+    } 
+    #endregion
 }

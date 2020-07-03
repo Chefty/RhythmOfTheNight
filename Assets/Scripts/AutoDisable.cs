@@ -4,24 +4,34 @@ using UnityEngine;
 
 public class AutoDisable : MonoBehaviour
 {
-	public float lifeTime = 2f;
+    #region Variables
+    public float lifeTime = 2f;
 
-	private WaitForSeconds delay;
+    private WaitForSeconds delay;
 
+    #endregion
+
+    #region Unity Callbacks
     private void Awake()
     {
-		delay = new WaitForSeconds(lifeTime);
-	}
+        delay = new WaitForSeconds(lifeTime);
+    }
 
-    // Use this for initialization
     void OnEnable()
-	{
-		StartCoroutine(Disabler());
-	}
+    {
+        StartCoroutine(DisablerCO());
+    }
+    #endregion
 
-	private IEnumerator Disabler()
-	{
-		yield return delay;
-		gameObject.SetActive(false);
-	}
+    #region Helper Methods
+    /// <summary>
+    /// Auto disabler coroutine based on GO lifetime setup
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator DisablerCO()
+    {
+        yield return delay;
+        gameObject.SetActive(false);
+    } 
+    #endregion
 }

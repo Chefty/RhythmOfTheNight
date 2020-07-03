@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class RhythmBlockBehaviour : MonoBehaviour
 {
+    #region Variables
+    // Public fields
     [SerializeField]
     private float moveSpeed = 15f;
     [SerializeField]
@@ -12,21 +14,25 @@ public class RhythmBlockBehaviour : MonoBehaviour
     [SerializeField]
     private Material enabledMaterial;
 
-    private Collider collider;
-    private bool lastBlock = false;
+    // Private fields
+    private Collider blockCollider;
+    private bool lastBlock = false; 
+    #endregion
 
+    // Getter/Setter
     public bool LastBlock { get => lastBlock; set => lastBlock = value; }
 
+    #region Unity Callbacks
     private void Awake()
     {
-        collider = GetComponent<Collider>();
+        blockCollider = GetComponent<Collider>();
     }
 
     private void OnEnable()
     {
-        // Reset default material when block is enabled again
+        // Reset default material and collider state
         gameObject.GetComponent<Renderer>().sharedMaterial = enabledMaterial;
-        collider.enabled = true;
+        blockCollider.enabled = true;
     }
 
     void Update()
@@ -43,8 +49,8 @@ public class RhythmBlockBehaviour : MonoBehaviour
             gameObject.GetComponent<Renderer>().sharedMaterial = disabledMaterial;
             gameObject.GetComponent<AutoDisable>().enabled = true;
             // Disable collision, block is out of range
-            collider.enabled = false;
-            // Player missed a drum head, so he won't have firework 
+            blockCollider.enabled = false;
+            // Player missed a drum head, so he won't have his firework 
             GameManager.instance.IsPlayerWin = false;
         }
     }
@@ -53,6 +59,10 @@ public class RhythmBlockBehaviour : MonoBehaviour
     {
         // If last block disabled it's endgame
         if (LastBlock)
+        {
+            lastBlock = false; // Reset variable for next round
             GameManager.instance.IsEndGame = true;
+        }
     }
+    #endregion
 }
